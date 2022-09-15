@@ -8,6 +8,7 @@
       hostname: "{{ vcenter_hostname }}"
       username: "{{ vcenter_username }}"
       password: "{{ vcenter_password }}"
+      datacenter: "{{ vcenter_datacenter }}"
       folder: "{{ vm_folder }}"
       name: "{{ vm_name }}"
       disk:

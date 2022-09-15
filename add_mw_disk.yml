@@ -11,10 +11,10 @@
       folder: "{{ vm_folder }}"
       name: "{{ vm_name }}"
       disk:
-        - size_gb: 5 # or size: 10gb
+        - size_gb: "{{ disk_size }}" # or size: 10gb
           type: eagerzeroedthick
           state: present
-          datastore: east-1.datastore01
+          datastore: "{{ datastore }}"
           bus_sharing: noSharing
           scsi_controller: "{{ scsi_controller }}"
           unit_number: "{{ unit_number }}"

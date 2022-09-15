@@ -1,0 +1,25 @@
+---
+- name:
+  hosts: localhost
+  gather_facts: no
+  tasks:
+  - name: Add disks to virtual machine using UUID
+    community.vmware.vmware_guest_disk:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      folder: "{{ vm_folder }}"
+      name: "{{ vm_name }}"
+      disk:
+        - size_gb: 5 # or size: 10gb
+          type: eagerzeroedthick
+          state: present
+          datastore: east-1.datastore01
+          bus_sharing: noSharing
+          scsi_controller: "{{ scsi_controller }}"
+          unit_number: "{{ unit_number }}"
+          sharing: yes
+          disk_mode: 'independent_persistent'
+      validate_certs: no
+    delegate_to: localhost
+    register: disk_facts

@@ -1,0 +1,41 @@
+---
+- name:
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+  - name: Gather disk info from virtual machine
+    community.vmware.vmware_guest_disk_info:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      datacenter: "{{ datacenter_name }}"
+      folder: "{{ vm_folder }}"
+      name: "{{ vm_name }}"
+      validate_certs: no
+    delegate_to: localhost
+    register: disk_info
+  - name:
+    set_fact:
+      shared_disk: "{{ disk_info['guest_disk_info']['1']['backing_filename'] }}"
+  - name:
+    debug:
+      msg: "{{ shared_disk }}"
+  - name: Add exsting disk to other vm
+    community.vmware.vmware_guest_disk:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      datacenter: "{{ datacenter_name }}"
+      folder: "{{ vm_folder_to_add }}"
+      name: "{{ vm_name_to_add }}"
+      disk:
+        - scsi_controller: 1
+          type: eagerzeroedthick
+          unit_number: 0
+          state: present
+          sharing: yes
+          disk_mode: 'independent_persistent'
+          filename: "{{ shared_disk }}"
+      validate_certs: no
+    register: disk_facts

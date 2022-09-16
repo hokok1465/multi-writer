@@ -3,12 +3,12 @@
   hosts: localhost
   gather_facts: no
   tasks:
-  - name: Add disk and USB 3.0 controllers for virtual machine located by name
+  - name: gather scsi controller facts 
     community.vmware.vmware_guest_controller:
       hostname: "{{ vcenter_hostname }}"
       username: "{{ vcenter_username }}"
       password: "{{ vcenter_password }}"
-      datacenter: "{{ datacenter_name }}"
+      datacenter: "{{ vm_datacenter }}"
       name: "{{ vm_name }}"
       folder: "{{ vm_folder }}"
       gather_disk_controller_facts: yes # no(default), yes
@@ -16,12 +16,12 @@
     delegate_to: localhost
     register: disk_controller_facts
 
-  - name: Add disk and USB 3.0 controllers for virtual machine located by name
+  - name: Add scsi controller if scsi controller 1 is not existed
     community.vmware.vmware_guest_controller:
       hostname: "{{ vcenter_hostname }}"
       username: "{{ vcenter_username }}"
       password: "{{ vcenter_password }}"
-      #datacenter: "{{ datacenter_name }}"
+      #datacenter: "{{ vm_datacenter }}"
       folder: "{{ vm_folder }}"
       name: "{{ vm_name }}"
       controllers:

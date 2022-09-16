@@ -15,7 +15,7 @@
         - size_gb: "{{ vm_disk_size }}" # or size: 10gb
           type: eagerzeroedthick
           state: present
-          datastore: "{{ datastore }}"
+          datastore: "{{ vm_datastore }}"
           bus_sharing: noSharing
           scsi_controller: "{{ vm_scsi_controller }}"
           unit_number: "{{ vm_unit_number }}"

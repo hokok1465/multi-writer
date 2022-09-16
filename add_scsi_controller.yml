@@ -8,6 +8,19 @@
       hostname: "{{ vcenter_hostname }}"
       username: "{{ vcenter_username }}"
       password: "{{ vcenter_password }}"
+      datacenter: "{{ datacenter_name }}"
+      name: "{{ vm_name }}"
+      folder: "{{ vm_folder }}"
+      gather_disk_controller_facts: yes # no(default), yes
+      validate_certs: no # yes(default), no
+    delegate_to: localhost
+    register: disk_controller_facts
+
+  - name: Add disk and USB 3.0 controllers for virtual machine located by name
+    community.vmware.vmware_guest_controller:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
       #datacenter: "{{ datacenter_name }}"
       folder: "{{ vm_folder }}"
       name: "{{ vm_name }}"
@@ -17,4 +30,4 @@
         controller_number: 1
         type: paravirtual # required # buslogic, lsilogic, lsilogicsas, paravirtual, sata, nvme, usb2, usb3
       validate_certs: no # yes(default), no
-    register: disk_controller_facts
+    when: disk_controller_facts.disk_controller_data.scsi['1'] is not defined

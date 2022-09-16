@@ -8,17 +8,17 @@
       hostname: "{{ vcenter_hostname }}"
       username: "{{ vcenter_username }}"
       password: "{{ vcenter_password }}"
-      datacenter: "{{ vcenter_datacenter }}"
+      datacenter: "{{ vm_datacenter }}"
       folder: "{{ vm_folder }}"
       name: "{{ vm_name }}"
       disk:
-        - size_gb: "{{ disk_size }}" # or size: 10gb
+        - size_gb: "{{ vm_disk_size }}" # or size: 10gb
           type: eagerzeroedthick
           state: present
           datastore: "{{ datastore }}"
           bus_sharing: noSharing
-          scsi_controller: "{{ scsi_controller }}"
-          unit_number: "{{ unit_number }}"
+          scsi_controller: "{{ vm_scsi_controller }}"
+          unit_number: "{{ vm_unit_number }}"
           sharing: yes
           disk_mode: 'independent_persistent'
       validate_certs: no

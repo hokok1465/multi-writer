@@ -9,7 +9,7 @@
       hostname: "{{ vcenter_hostname }}"
       username: "{{ vcenter_username }}"
       password: "{{ vcenter_password }}"
-      datacenter: "{{ datacenter_name }}"
+      datacenter: "{{ vm_datacenter }}"
       folder: "{{ vm_folder }}"
       name: "{{ vm_name }}"
       validate_certs: no
@@ -26,7 +26,7 @@
       hostname: "{{ vcenter_hostname }}"
       username: "{{ vcenter_username }}"
       password: "{{ vcenter_password }}"
-      datacenter: "{{ datacenter_name }}"
+      datacenter: "{{ vm_datacenter }}"
       folder: "{{ vm_folder_to_add }}"
       name: "{{ vm_name_to_add }}"
       disk:

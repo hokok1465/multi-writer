@@ -13,8 +13,8 @@
       name: "{{ vm_name }}"
       disk:
         - state: absent
-          scsi_controller: "{{ scsi_controller }}"
-          unit_number: "{{ unit_number }}"
+          scsi_controller: "{{ vm_scsi_controller }}"
+          unit_number: "{{ vm_unit_number }}"
       validate_certs: no
     delegate_to: localhost
     register: disk_facts

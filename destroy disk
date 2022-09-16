@@ -1,0 +1,20 @@
+---
+- name:
+  hosts: localhost
+  gather_facts: no
+  tasks:
+  - name: 
+    community.vmware.vmware_guest_disk:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      datacenter: "{{ datacenter_name }}"
+      folder: "{{ vm_folder }}"
+      name: "{{ vm_name }}"
+      disk:
+        - state: absent
+          scsi_controller: "{{ scsi_controller }}"
+          unit_number: "{{ unit_number }}"
+      validate_certs: no
+    delegate_to: localhost
+    register: disk_facts
